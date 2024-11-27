@@ -1,24 +1,26 @@
-<table class="min-w-full my-8 table-auto">
-  <thead>
-    <tr class="text-white">
-      <% headers.keys.each do |header| %>
-        <th><%= header %></th>
+<div class="overflow-x-auto">
+  <table class="table min-w-full my-8 table-zebra">
+    <thead>
+      <tr class="text-white">
+        <% headers.keys.each do |header| %>
+          <th><%= header %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <%= turbo_frame_tag "base_models" do %>
+        <% collection.each do |item| %>
+          <tr>
+            <% headers.each do |_, attribute| %>
+              <td class="text-white"><%= item.send(attribute) %></td>
+            <% end %>
+            <td>
+              <%= link_to "Edit", edit_base_model_path(item), class: "text-blue-500" %>
+              <%= button_to "Delete", base_model_path(item), method: :delete, class: "text-red-500" %>
+            </td>
+          </tr>
+        <% end %>
       <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <%= turbo_frame_tag "base_models" do %>
-      <% collection.each do |item| %>
-        <tr>
-          <% headers.each do |_, attribute| %>
-            <td class="text-white"><%= item.send(attribute) %></td>
-          <% end %>
-          <td>
-            <%= link_to "Edit", edit_base_model_path(item), class: "text-blue-500" %>
-            <%= button_to "Delete", base_model_path(item), method: :delete, class: "text-red-500" %>
-          </td>
-        </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>

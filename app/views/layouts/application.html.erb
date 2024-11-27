@@ -11,7 +11,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-custom-bg-main">
+  <body class="flex flex-col min-h-screen bg-custom-bg-main">
     <!-- Top Menu -->
     <div data-controller="">
       <div class="relative flex justify-between p-2">
@@ -115,7 +115,7 @@
           </div>
         </div>
       </div>
-    <main class="container px-5 mx-auto mt-28">
+    <main class="container flex-grow px-5 mx-auto">
       <%= yield %>
     </main>
   </body>
