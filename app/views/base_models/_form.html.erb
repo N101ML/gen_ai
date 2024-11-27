@@ -1,0 +1,11 @@
+<%= form_with model: base_model, id: dom_id(base_model, "form"), class: "table min-w-full" do |form| %>
+  <div>
+    <%= form.text_field :name, placeholder: "Base Model Name", class: "block rounded-md border border-gray-200 outline-none px-3 py-2" %>
+  </div>
+  <div>
+    <%= form.text_field :company, placeholder: "Company Name", class: "block rounded-md border border-gray-200 outline-none px-3 py-2" %>
+  </div>
+  <div class="inline">
+    <%= form.submit "Save", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>

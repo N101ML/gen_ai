@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  render_type: MyString
+  guidance_scale: 1.5
+  steps: 1
+  num_outputs: 1
+  prompt: MyText
+  status: 1
+  modelable: one
+  modelable_type: Modelable
+
+two:
+  render_type: MyString
+  guidance_scale: 1.5
+  steps: 1
+  num_outputs: 1
+  prompt: MyText
+  status: 1
+  modelable: two
+  modelable_type: Modelable
