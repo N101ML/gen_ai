@@ -1,5 +1,5 @@
 <div class="overflow-x-auto rounded-lg">
-  <%= turbo_frame_tag frame_id , class: "" do %>
+  <%= turbo_frame_tag frame_id || "collection-frame", class: "" do %>
     <table class="table min-w-full rounded-lg table-zebra">
 
       <!-- Header -->
@@ -16,19 +16,12 @@
       <tbody>
         <!-- Form Row -->
         <% if form.present? %>
-          <tr>
-            <%= form_with(model: collection.new, url: collection_path, method: :post, class: "w-full") do |f| %>
-              <% headers.each do |_, attribute| %>
-                <td>
-                  <%= f.text_field attribute.split('.').last,
-                  class: "block rounded-md border border-gray-200 outline-none px-3 py-2 w-full" %>
-                </td>
-              <% end %>
-              <td>
-                <%= f.submit "Add", class: "btn" %>
-              </td>
-            <% end %>
-          </tr>
+          <%= render partial: "shared/resource_form_row", locals: {
+            headers: headers,
+            dropdowns: dropdowns,
+            collection: collection,
+            collection_path: collection_path
+          } %>
         <% end %>
 
         <!-- Turbo Frame for Collection -->

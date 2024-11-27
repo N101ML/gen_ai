@@ -1,0 +1,22 @@
+<tr>
+  <%= form_with(model: collection.new, url: collection_path, method: :post, class: "w-full") do |f| %>
+    <% headers.each do |_, attribute| %>
+      <td>
+        <% if dropdowns&.key?(attribute) %>
+          <!-- Render Dropdown -->
+          <%= f.collection_select attribute, dropdowns[attribute], :first, :last, 
+                { prompt: "Select #{attribute.humanize}" },
+                class: "block rounded-md border border-gray-200 outline-none px-3 py-2 w-full" %>
+        <% else %>
+          <!-- Render Text Field -->
+          <%= f.text_field attribute,
+                placeholder: attribute.humanize,
+                class: "block rounded-md border border-gray-200 outline-none px-3 py-2 w-full" %>
+        <% end %>
+      </td>
+    <% end %>
+    <td>
+      <%= f.submit "Add", class: "btn" %>
+    </td>
+  <% end %>
+</tr>

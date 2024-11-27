@@ -12,7 +12,10 @@
     collection: @fine_tunes,
     collection_path: fine_tunes_path,
     frame_id: "fine_tunes",
-    headers: { "Fine Tune" => 'name', "Base Model" => "base_model.name" },
+    headers: { "Fine Tune" => 'name', "Base Model" => "model_id" },
+    dropdowns: {
+      "model_id" => BaseModel.all.pluck(:id, :name) # { id => name }
+    },
     form: true
-  }%>
+  } %>
 </div>
