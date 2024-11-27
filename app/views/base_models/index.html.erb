@@ -4,6 +4,9 @@
 
   <%= render partial: "shared/resource_table", locals: { 
     collection: @base_models,
-    headers: { "Base Model" => 'name', "Company" => 'company' }
+    collection_path: base_models_path,
+    frame_id: "base_models",
+    headers: { "Base Model" => 'name', "Company" => 'company' },
+    form: true
   }%>
 </div>

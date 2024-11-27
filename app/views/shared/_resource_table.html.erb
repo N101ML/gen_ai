@@ -1,26 +1,47 @@
-<div class="overflow-x-auto">
-  <table class="table min-w-full my-8 table-zebra">
-    <thead>
-      <tr class="text-white">
-        <% headers.keys.each do |header| %>
-          <th><%= header %></th>
-        <% end %>
-      </tr>
-    </thead>
-    <tbody>
-      <%= turbo_frame_tag "base_models" do %>
-        <% collection.each do |item| %>
+<div class="overflow-x-auto rounded-lg">
+  <%= turbo_frame_tag frame_id , class: "" do %>
+    <table class="table min-w-full rounded-lg table-zebra">
+      <thead>
+        <tr class="text-white bg-gray-800">
+          <% headers.keys.each do |header| %>
+            <th class="px-4 py-2"><%= header %></th>
+          <% end %>
+          <th class="px-4 py-2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Form Row -->
+        <% if form.present? %>
           <tr>
-            <% headers.each do |_, attribute| %>
-              <td class="text-white"><%= item.send(attribute) %></td>
+            <%= form_with(model: collection.new, url: collection_path, method: :post, class: "w-full") do |f| %>
+              <% headers.each do |_, attribute| %>
+                <td>
+                  <%= f.text_field attribute.split('.').last,
+                  class: "block rounded-md border border-gray-200 outline-none px-3 py-2 w-full" %>
+                </td>
+              <% end %>
+              <td>
+                <%= f.submit "Add", class: "btn" %>
+              </td>
             <% end %>
-            <td>
-              <%= link_to "Edit", edit_base_model_path(item), class: "text-blue-500" %>
-              <%= button_to "Delete", base_model_path(item), method: :delete, class: "text-red-500" %>
+          </tr>
+        <% end %>
+
+        <!-- Turbo Frame for Collection -->
+        <% collection.each do |item| %>
+          <tr class="transition duration-200 bg-gray-900 hover:bg-gray-800">
+            <% headers.each do |_, attribute| %>
+              <td class="px-4 py-2 text-white">
+                <%= attribute.split('.').inject(item) { |obj, method| obj.try(method) } %>
+              </td>
+            <% end %>
+            <td class="px-4 py-2">
+              <%= link_to "Edit", polymorphic_path([:edit, item]), class: "text-blue-500 hover:underline" %>
+              <%= button_to "Delete", polymorphic_path(item), method: :delete, class: "text-red-500 hover:underline" %>
             </td>
           </tr>
         <% end %>
-      <% end %>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  <% end %>
 </div>

@@ -11,18 +11,16 @@ class BaseModelsController < ApplicationController
     @base_model = BaseModel.new(base_model_params)
 
     if @base_model.save
-      flash.now[:notice] = "base_model was successfully created."
-      render turbo_stream: [
-        turbo_stream.prepend("base_models", @base_model),
-        turbo_stream.replace(
-          "form_base_model",
-          partial: "form",
-          locals: { base_model: BaseModel.new }
-        ),
-        turbo_stream.replace("notice", partial: "layouts/flash")
-      ]
+      render turbo_stream: turbo_stream.append(
+        dom_id(@base_models),
+        partial: "shared/resource_table",
+        locals: { item: @base_model, headers: { "Base Model" => 'name', "Company" => 'company' } }
+      )
     else
-      render :new, status: :unprocessable_entity
+      render turbo_stream: turbo_stream.replace(
+        dom_id(@base_model, "form"),
+        locals: { base_model: @base_model }
+      )
     end
   end
 

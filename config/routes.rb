@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   root to: "providers#index"
 
   # Providers
-  resources :providers, only: [:index, :show, :new, :create] do
+  resources :providers, only: [:index, :show, :new, :create, :edit] do
     resources :provider_links, only: [:index, :show]
   end
 
