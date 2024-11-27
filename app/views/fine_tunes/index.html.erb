@@ -1,6 +1,12 @@
 <div class="w-full">
   <% content_for :title, "Fine Tunes" %>
-  <h1 class="text-4xl font-bold text-white">Fine Tunes</h1>
+
+  <div class="flex justify-between mb-2">
+    <h1 class="text-4xl font-bold text-white">Fine Tunes</h1>
+    <%= form_with url: fine_tunes_path, method: :get, data: { controller: "form", action: "input->form#submit", turbo_frame: "fine_tunes", turbo_action: "advance" } do %>
+      <%= text_field_tag "filter", nil, placeholder: "Filter", class: "rounded-md border border-gray-200 outline-none w-full" %>
+    <% end %>
+  </div>
 
   <%= render partial: "shared/resource_table", locals: { 
     collection: @fine_tunes,

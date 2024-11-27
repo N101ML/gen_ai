@@ -1,6 +1,8 @@
 <div class="overflow-x-auto rounded-lg">
   <%= turbo_frame_tag frame_id , class: "" do %>
     <table class="table min-w-full rounded-lg table-zebra">
+
+      <!-- Header -->
       <thead>
         <tr class="text-white bg-gray-800">
           <% headers.keys.each do |header| %>
@@ -9,6 +11,8 @@
           <th class="px-4 py-2"></th>
         </tr>
       </thead>
+
+      <!-- Body -->
       <tbody>
         <!-- Form Row -->
         <% if form.present? %>

@@ -17,8 +17,8 @@ class FineTunesController < ApplicationController
         partial: "shared/resource_table",
         locals: { item: @fine_tune,
         headers: {
-          "Fine Tune" => 'name' ,
-          "Base Model" => "#{@fine_tune.base_model.name}"
+          "Fine Tune" => 'name',
+          "Base Model" => "base_model.name"
           }
         }
       )
@@ -28,5 +28,11 @@ class FineTunesController < ApplicationController
         locals: { fine_tune: @fine_tune }
       )
     end
+  end
+
+  private
+
+  def fine_tune_params
+    params.require(:fine_tune).permit(:name, :base_model_id)
   end
 end
