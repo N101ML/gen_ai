@@ -1,13 +1,32 @@
 <div class="w-full">
   <% content_for :title, "Base Models" %>
-  <h1 class="text-4xl font-bold text-white">Base Models</h1>
 
-  <%= render partial: "shared/resource_table", locals: { 
-    collection: @base_models,
-    collection_path: base_models_path,
-    frame_id: "base_models",
-    headers: { "Base Model" => 'name', "Company" => 'company' },
-    dropdowns: {},
-    form: true
-  }%>
+  <div class="flex justify-between mb-2">
+    <h1 class="text-4xl font-bold text-white">Base Models</h1>
+    <!-- Search Filter -->
+    <%= form_with url: base_models_path, method: :get, data: { controller: "form", action: "input->form#submit", turbo_frame: "base_models", turbo_action: "advance" } do %>
+      <%= text_field_tag "filter", nil, placeholder: "Filter", class: "rounded-md border border-gray-200 outline-none w-full" %>
+    <% end %>
+  </div>
+
+  <div class="overflow-x-auto rounded-lg">
+    <table class="table min-w-full rounded-lg table-zebra">
+      <!-- Header -->
+      <thead>
+        <%= render partial: "shared/resource_table_header", locals: { headers: ["Base Model Name", "Company"] } %>
+      </thead>
+
+      <tbody>
+        <!-- Fine Tune Rows -->
+        <%= turbo_frame_tag "base_models" do %>
+          <%= render @base_models %>
+        <% end %>
+      </tbody>
+    </table>
+    <div>
+      <%= turbo_frame_tag "new-fine-tune-form", class: "w-full" do %>
+        <%= render "form", base_model: BaseModel.new %>
+      <% end %>
+    </div>
+  </div>
 </div>

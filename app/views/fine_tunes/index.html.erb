@@ -3,19 +3,30 @@
 
   <div class="flex justify-between mb-2">
     <h1 class="text-4xl font-bold text-white">Fine Tunes</h1>
+    <!-- Search Filter -->
     <%= form_with url: fine_tunes_path, method: :get, data: { controller: "form", action: "input->form#submit", turbo_frame: "fine_tunes", turbo_action: "advance" } do %>
       <%= text_field_tag "filter", nil, placeholder: "Filter", class: "rounded-md border border-gray-200 outline-none w-full" %>
     <% end %>
   </div>
 
-  <%= render partial: "shared/resource_table", locals: { 
-    collection: @fine_tunes,
-    collection_path: fine_tunes_path,
-    frame_id: "fine_tunes",
-    headers: { "Fine Tune" => 'name', "Base Model" => "model_id" },
-    dropdowns: {
-      "model_id" => BaseModel.all.pluck(:id, :name) # { id => name }
-    },
-    form: true
-  } %>
+  <div class="overflow-x-auto rounded-lg">
+    <table class="table min-w-full rounded-lg table-zebra">
+      <!-- Header -->
+      <thead>
+        <%= render partial: "shared/resource_table_header", locals: { headers: ["Fine Tune Name", "Base Model"] } %>
+      </thead>
+
+      <tbody>
+        <!-- Fine Tune Rows -->
+        <%= turbo_frame_tag "fine_tunes" do %>
+          <%= render @fine_tunes %>
+        <% end %>
+      </tbody>
+    </table>
+    <div>
+      <%= turbo_frame_tag "new-fine-tune-form", class: "w-full" do %>
+        <%= render "form", fine_tune: FineTune.new %>
+      <% end %>
+    </div>
+  </div>
 </div>

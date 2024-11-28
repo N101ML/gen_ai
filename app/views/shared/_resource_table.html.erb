@@ -1,44 +1,22 @@
 <div class="overflow-x-auto rounded-lg">
-  <%= turbo_frame_tag frame_id || "collection-frame", class: "" do %>
-    <table class="table min-w-full rounded-lg table-zebra">
+  <table class="table min-w-full rounded-lg table-zebra">
 
-      <!-- Header -->
-      <thead>
-        <tr class="text-white bg-gray-800">
-          <% headers.keys.each do |header| %>
-            <th class="px-4 py-2"><%= header %></th>
-          <% end %>
-          <th class="px-4 py-2"></th>
-        </tr>
-      </thead>
+    <!-- Body -->
+    <tbody>
+      <!-- Form Row -->
+      <% if form.present? %>
+        <%= render partial: "shared/resource_form_row", locals: {
+          headers: headers,
+          dropdowns: dropdowns,
+          collection: collection,
+          collection_path: collection_path,
+        } %>
+      <% end %>
 
-      <!-- Body -->
-      <tbody>
-        <!-- Form Row -->
-        <% if form.present? %>
-          <%= render partial: "shared/resource_form_row", locals: {
-            headers: headers,
-            dropdowns: dropdowns,
-            collection: collection,
-            collection_path: collection_path
-          } %>
-        <% end %>
-
-        <!-- Turbo Frame for Collection -->
-        <% collection.each do |item| %>
-          <tr class="transition duration-200 bg-gray-900 hover:bg-gray-800">
-            <% headers.each do |_, attribute| %>
-              <td class="px-4 py-2 text-white">
-                <%= attribute.split('.').inject(item) { |obj, method| obj.try(method) } %>
-              </td>
-            <% end %>
-            <td class="px-4 py-2">
-              <%= link_to "Edit", polymorphic_path([:edit, item]), class: "text-blue-500 hover:underline" %>
-              <%= button_to "Delete", polymorphic_path(item), method: :delete, class: "text-red-500 hover:underline" %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
+      <!-- Turbo Frame for Collection -->
+      <% collection.each do |item| %>
+        <%= render partial: item, locals: { resource: item } %>
+      <% end %>
+    </tbody>
+  </table>
 </div>

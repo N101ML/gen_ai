@@ -5,9 +5,11 @@
   <%= render partial: "shared/resource_table", locals: { 
     collection: @providers,
     collection_path: new_provider_path,
-    frame_id: "providers",
-    headers: { "Provider Name" => 'name' },
-    dropdowns: {},
+    frame_id: "provider",
+    headers: [ "Provider"],
+    dropdowns: {
+      "Provider" => Provider.all.pluck(:id, :name) # { id => name }
+    },
     form: true
-  }%>
+  } %>
 </div>

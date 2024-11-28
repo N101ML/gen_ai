@@ -1,14 +1,18 @@
-<div id="<%= dom_id fine_tune %>">
-  <p class="my-5 text-white">
-    <strong class="block mb-1 font-medium">Name:</strong>
-    <%= fine_tune.name %>
-  </p>
-  <p class="my-5 text-white">
-    <strong class="block mb-1 font-medium">Base Model:</strong>
-    <%= fine_tune.base_model.name %>
-  </p>
-
-  <div class="flex items-center justify-start m-2">
-    <%= link_to "Add fine_tune", new_base_model_fine_tune_path(fine_tune.base_model), class: "rounded-lg px-4 bg-blue-600 text-white block font-medium" %>
-  </div>
-</div>
+<%= turbo_frame_tag fine_tune do %>
+  <tr class="transition duration-200 bg-gray-900 hover:bg-gray-800">
+    <td class="px-4 py-2 text-white">
+      <%= fine_tune.name %>
+    </td>
+    <td class="px-4 py-2 text-white">
+      <%= fine_tune.base_model&.name %>
+    </td>
+    <td class="flex px-4 py-2 space-x-2 text-white">
+      <%= link_to "Edit", edit_fine_tune_path(fine_tune),
+                class: "text-blue-500 hover:underline",
+                data: { turbo_frame: dom_id(fine_tune) } %>
+      <%= button_to "Delete", fine_tune_path(fine_tune),
+                  method: :delete,
+                  class: "text-red-500 hover:underline" %>
+    </td>
+  </tr>
+<% end %>
