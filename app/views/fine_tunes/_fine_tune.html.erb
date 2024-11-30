@@ -5,7 +5,7 @@
   <td class="text-white">
     <%= fine_tune.base_model&.name %>
   </td>
-  <td class="flex justify-center space-x-2 text-white">
+  <td class="flex text-white justify-evenly">
     <%= button_to edit_fine_tune_path(fine_tune), 
               method: :get, # Ensures it sends a GET request like a link
               class: "text-blue-500 hover:underline flex items-center", 

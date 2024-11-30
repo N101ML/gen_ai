@@ -1,10 +1,14 @@
 <tr class="border-t border-neutral">
-  <td class="">
-    <%= form_with model: provider, id: dom_id(provider, "form"), class: "flex flex-cols" do |f| %>
+  <%= form_with model: provider, id: dom_id(provider, "form"), class: "flex flex-cols" do |f| %>
+    <td>
       <%= f.text_field :name, placeholder: "Provider Name", class: "text-white bg-custom-bg-main" %>
     </td>
-    <td class="flex justify-center">
+    <td class="flex justify-center space-x-2">
       <%= f.submit provider.new_record? ? "Add" : "Update", class: "btn btn-outline text-white bg-custom-bg-main" %>
-    <% end %>
-  </td>
+
+      <% unless provider.new_record? %>
+        <%= link_to "Back", providers_path, class: "btn btn-outline text-white bg-custom-bg-main" %>
+      <% end %>
+    </td>
+  <% end %>
 </tr>
