@@ -6,15 +6,15 @@
           <!-- Dropdown -->
           <%= f.collection_select attribute, dropdowns[attribute], :first, :last,
                 { prompt: "Select #{attribute}" },
-                class: "block rounded-md border border-gray-200 outline-none px-3 py-2 w-full" %>
+                class: "block rounded-md border border-gray-200 outline-none w-full" %>
         <% else %>
           <%= f.text_field attribute,
-                class: "block rounded-md border border-gray-200 outline-none px-3 py-2 w-full" %>
+                class: "block rounded-md border border-gray-200 outline-none w-full" %>
         <% end %>
       </td>
     <% end %>
     <td>
-      <%= f.submit "Add", class: "btn" %>
+      <%= f.submit "Add", class: "btn btn-outline" %>
     </td>
   <% end %>
 </tr>

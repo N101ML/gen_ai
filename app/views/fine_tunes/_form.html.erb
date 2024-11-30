@@ -1,5 +1,13 @@
-<%= form_with model: fine_tune, id: dom_id(fine_tune, "form"), class: "w-full flex flex-cols" do |f| %>
-  <%= f.text_field :name, placeholder: "Fine Tune Name", class: "rounded-md border-gray-200 m-2" %>
-  <%= f.collection_select :base_model_id, BaseModel.all, :id, :name, { prompt: "Select a Base Model" }, class: "rounded-md border-gray-200 w-full m-2" %>
-  <%= f.submit fine_tune.new_record? ? "Create" : "Update", class: "px-4 py-2 bg-blue-500 text-white rounded-md m-2" %>
-<% end %>
+<tr class="border-t border-neutral">
+  <td class="">
+    <%= form_with model: fine_tune, id: dom_id(fine_tune, "form"), class: "flex flex-cols" do |f| %>
+      <%= f.text_field :name, placeholder: "Fine Tune Name", class: "text-white bg-custom-bg-main" %>
+    </td>
+    <td class="">
+      <%= f.collection_select :base_model_id, BaseModel.all, :id, :name, { prompt: "Select a Base Model" }, class: "bg-custom-bg-main" %>
+    </td>
+    <td class="">
+      <%= f.submit fine_tune.new_record? ? "Add" : "Update", class: "btn btn-outline text-white bg-custom-bg-main" %>
+    <% end %>
+  </td>
+</tr>

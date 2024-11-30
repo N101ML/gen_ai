@@ -1,5 +1,13 @@
-<%= form_with model: base_model, id: dom_id(base_model, "form"), class: "w-full flex flex-cols" do |f| %>
-  <%= f.text_field :name, placeholder: "Fine Tune Name", class: "rounded-md border-gray-200 m-2" %>
-  <%= f.text_field :company, placeholder: "Company", class: "rounded-md border-gray-200 w-full m-2" %>
-  <%= f.submit base_model.new_record? ? "Create" : "Update", class: "px-4 py-2 bg-blue-500 text-white rounded-md m-2" %>
-<% end %>
+<tr class="bg-neutral">
+  <td class="">
+    <%= form_with model: base_model, id: dom_id(base_model, "form"), class: "flex flex-cols" do |f| %>
+      <%= f.text_field :name, placeholder: "Base Model Name", class: "rounded-md border-gray-200" %>
+    </td>
+    <td class="">
+      <%= f.collection_select :company, BaseModel.distinct.pluck(:company).compact, { prompt: "Select a Company" }, class: "rounded-md border-gray-200" %>
+    </td>
+    <td class="text-white ">
+      <%= f.submit base_model.new_record? ? "Add" : "Update", class: "btn btn-outline text-white" %>
+    <% end %>
+  </td>
+</tr>

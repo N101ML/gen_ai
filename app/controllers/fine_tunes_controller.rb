@@ -33,10 +33,10 @@ class FineTunesController < ApplicationController
   end
 
   def edit
+    @fine_tune = FineTune.find(params[:id])
+
     respond_to do |format|
-      format.turbo_stream do
-        render partial: "edit", locals: { fine_tune: @fine_tune }
-      end
+      format.turbo_stream
       format.html
     end
   end

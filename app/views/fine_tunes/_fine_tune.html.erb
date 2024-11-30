@@ -1,18 +1,16 @@
-<%= turbo_frame_tag fine_tune do %>
-  <tr class="transition duration-200 bg-gray-900 hover:bg-gray-800">
-    <td class="px-4 py-2 text-white">
-      <%= fine_tune.name %>
-    </td>
-    <td class="px-4 py-2 text-white">
-      <%= fine_tune.base_model&.name %>
-    </td>
-    <td class="flex px-4 py-2 space-x-2 text-white">
-      <%= link_to "Edit", edit_fine_tune_path(fine_tune),
-                class: "text-blue-500 hover:underline",
-                data: { turbo_frame: dom_id(fine_tune) } %>
-      <%= button_to "Delete", fine_tune_path(fine_tune),
-                  method: :delete,
-                  class: "text-red-500 hover:underline" %>
-    </td>
-  </tr>
-<% end %>
+<tr class="border-t border-neutral" id="fine_tune_<%= fine_tune.id %>">
+  <td class="text-white">
+    <%= fine_tune.name %>
+  </td>
+  <td class="text-white">
+    <%= fine_tune.base_model&.name %>
+  </td>
+  <td class="flex space-x-2 text-white">
+    <%= link_to "Edit", edit_fine_tune_path(fine_tune),
+              class: "text-blue-500 hover:underline",
+              data: { turbo_stream: true } %>
+    <%= button_to "Delete", fine_tune_path(fine_tune),
+                method: :delete,
+                class: "text-red-500 hover:underline" %>
+  </td>
+</tr>

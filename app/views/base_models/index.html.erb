@@ -17,16 +17,16 @@
       </thead>
 
       <tbody>
+        <div>
+          <%= turbo_frame_tag "new-base-model-form", class: "w-full" do %>
+            <%= render "form", fine_tune: BaseModel.new %>
+          <% end %>
+        </div>
         <!-- Fine Tune Rows -->
         <%= turbo_frame_tag "base_models" do %>
           <%= render @base_models %>
         <% end %>
       </tbody>
     </table>
-    <div>
-      <%= turbo_frame_tag "new-fine-tune-form", class: "w-full" do %>
-        <%= render "form", base_model: BaseModel.new %>
-      <% end %>
-    </div>
   </div>
 </div>
