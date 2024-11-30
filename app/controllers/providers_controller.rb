@@ -10,17 +10,14 @@ class ProvidersController < ApplicationController
   def create
     @provider = Provider.new(provider_params)
 
-    if @provider.save
-      render turbo_stream: turbo_stream.append(
-        dom_id(@providers),
-        partial: "shared/resource_table",
-        locals: { item: @provider, headers: { "Provider" => 'name' } }
-      )
-    else
-      render turbo_stream: turbo_stream.replace(
-        dom_id(@provider, "form"),
-        locals: { provider: @provider }
-      )
+    respond_to do |format|
+      if @provider.save
+        format.html { redirect_to providers_path, notice: "Provider was successfully created." }
+        format.json { render :show, status: :created, location: @provider }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @provider.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -31,5 +28,11 @@ class ProvidersController < ApplicationController
       format.turbo_stream
       format.html
     end
+  end
+
+  private
+
+  def provider_params
+    params.require(:provider).permit(:name)
   end
 end
