@@ -1,10 +1,22 @@
-<tr class="bg-neutral">
+<tr class="border-t border-neutral" data-controller="form">
   <td class="">
     <%= form_with model: base_model, id: dom_id(base_model, "form"), class: "flex flex-cols" do |f| %>
-      <%= f.text_field :name, placeholder: "Base Model Name", class: "rounded-md border-gray-200" %>
+      <%= f.text_field :name, placeholder: "Base Model Name", class: "text-white bg-custom-bg-main" %>
     </td>
     <td class="">
-      <%= f.collection_select :company, BaseModel.distinct.pluck(:company).compact, { prompt: "Select a Company" }, class: "rounded-md border-gray-200" %>
+      <%= f.collection_select :company, 
+        BaseModel.distinct.pluck(:company).compact + ["Add a new company"],
+        :to_s, # Value method: use the string itself as the value
+        :to_s, # Text method: use the string itself as the display text
+        { prompt: "Select a Company" }, # Options hash
+        class: " w-full bg-custom-bg-main",
+        data: { action: "change->form#customCompany", form_target: "collectionCompany"}
+      %>
+
+      <%= f.text_field :custom_company, 
+        placeholder: "Enter a new company", 
+        class: "w-full hidden bg-custom-bg-main",
+        data: { form_target: "customCompany" } %>
     </td>
     <td class="text-white ">
       <%= f.submit base_model.new_record? ? "Add" : "Update", class: "btn btn-outline text-white" %>

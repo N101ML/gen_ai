@@ -1,12 +1,24 @@
 import { Controller } from "@hotwired/stimulus";
 
-// Connects to data-controller="form"
 export default class extends Controller {
-  initialize() {
-    this.submit = debounce(this.submit.bind(this), 300);
+  static targets = ["customCompany", "collectionCompany"];
+
+  connect() {
+    console.log("form stimulus: connected.");
   }
 
-  submit() {
-    this.element.requestSubmit();
+  customCompany(event) {
+    const selectedValue = event.target.value;
+    console.log(selectedValue);
+
+    if (selectedValue === "Add a new company") {
+      this.customCompanyTarget.classList.remove("hidden");
+      this.collectionCompanyTarget.classList.add("hidden");
+      this.customCompanyTarget.required = true; // Make it required
+    } else {
+      this.customCompanyTarget.classList.add("hidden");
+      this.collectionCompanyTarget.classList.remove("hidden");
+      this.customCompanyTarget.required = false;
+    }
   }
 }

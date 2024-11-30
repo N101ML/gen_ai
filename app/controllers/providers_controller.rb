@@ -23,4 +23,13 @@ class ProvidersController < ApplicationController
       )
     end
   end
+
+  def edit
+    @provider = Provider.find(params[:id])
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html
+    end
+  end
 end

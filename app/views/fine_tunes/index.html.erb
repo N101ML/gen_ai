@@ -2,7 +2,7 @@
   <% content_for :title, "Fine Tunes" %>
 
   <div class="flex justify-between mb-2">
-    <h1 class="text-4xl font-bold text-white">Fine Tunes</h1>
+    <h1 class="text-4xl font-bold text-white"></h1>
     <!-- Search Filter -->
     <%= form_with url: fine_tunes_path, method: :get, data: { controller: "form", action: "input->form#submit", turbo_frame: "fine_tunes", turbo_action: "advance" } do %>
       <%= text_field_tag "filter", nil, placeholder: "Filter", class: "bg-custom-bg-main w-full" %>

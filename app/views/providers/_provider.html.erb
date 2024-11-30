@@ -1,5 +1,13 @@
-<div id="<%= dom_id provider %>">
+<tr class="border-t border-neutral" id="provider_<%= provider.id %>">
   <td class="text-white">
-    <%= resource.name %>
+    <%= provider.name %>
   </td>
-</div>
+  <td class="flex space-x-2 text-white">
+    <%= link_to "Edit", edit_provider_path(provider),
+              class: "text-blue-500 hover:underline",
+              data: { turbo_stream: true } %>
+    <%= button_to "Delete", provider_path(provider),
+                method: :delete,
+                class: "text-red-500 hover:underline" %>
+  </td>
+</tr>

@@ -2,15 +2,15 @@
   <% content_for :title, "Base Models" %>
 
   <div class="flex justify-between mb-2">
-    <h1 class="text-4xl font-bold text-white">Base Models</h1>
+    <h1 class="text-4xl font-bold text-white"></h1>
     <!-- Search Filter -->
     <%= form_with url: base_models_path, method: :get, data: { controller: "form", action: "input->form#submit", turbo_frame: "base_models", turbo_action: "advance" } do %>
-      <%= text_field_tag "filter", nil, placeholder: "Filter", class: "rounded-md border border-gray-200 outline-none w-full" %>
+      <%= text_field_tag "filter", nil, placeholder: "Filter", class: "bg-custom-bg-main w-full" %>
     <% end %>
   </div>
 
   <div class="overflow-x-auto rounded-lg">
-    <table class="table min-w-full rounded-lg table-zebra">
+    <table class="table min-w-full border-t table-zebra border-neutral">
       <!-- Header -->
       <thead>
         <%= render partial: "shared/resource_table_header", locals: { headers: ["Base Model Name", "Company"] } %>
@@ -19,7 +19,7 @@
       <tbody>
         <div>
           <%= turbo_frame_tag "new-base-model-form", class: "w-full" do %>
-            <%= render "form", fine_tune: BaseModel.new %>
+            <%= render "form", base_model: BaseModel.new %>
           <% end %>
         </div>
         <!-- Fine Tune Rows -->

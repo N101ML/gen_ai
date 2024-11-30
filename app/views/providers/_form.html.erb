@@ -1,0 +1,10 @@
+<tr class="border-t border-neutral">
+  <td class="">
+    <%= form_with model: provider, id: dom_id(provider, "form"), class: "flex flex-cols" do |f| %>
+      <%= f.text_field :name, placeholder: "Provider Name", class: "text-white bg-custom-bg-main" %>
+    </td>
+    <td class="">
+      <%= f.submit provider.new_record? ? "Add" : "Update", class: "btn btn-outline text-white bg-custom-bg-main" %>
+    <% end %>
+  </td>
+</tr>

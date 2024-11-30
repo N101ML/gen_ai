@@ -1,15 +1,30 @@
 <div class="w-full">
   <% content_for :title, "Providers" %>
-  <h1 class="text-4xl font-bold text-white">Providers</h1>
 
-  <%= render partial: "shared/resource_table", locals: { 
-    collection: @providers,
-    collection_path: new_provider_path,
-    frame_id: "provider",
-    headers: [ "Provider"],
-    dropdowns: {
-      "Provider" => Provider.all.pluck(:id, :name) # { id => name }
-    },
-    form: true
-  } %>
+  <div class="flex justify-between mb-2">
+    <h1 class="text-4xl font-bold text-white"></h1>
+    <!-- Search Filter -->
+    <%= form_with url: providers_path, method: :get, data: { controller: "form", action: "input->form#submit", turbo_frame: "providers", turbo_action: "advance" } do %>
+      <%= text_field_tag "filter", nil, placeholder: "Filter", class: "bg-custom-bg-main w-full" %>
+    <% end %>
+  </div>
+
+  <div class="overflow-x-auto rounded-lg">
+    <table class="table min-w-full border-t table-zebra border-neutral">
+      <!-- Header -->
+      <thead>
+        <%= render partial: "shared/resource_table_header", locals: { headers: ["Provider Name"] } %>
+      </thead>
+
+      <tbody id="providers">
+        <div>
+          <%= turbo_frame_tag "new-provider-form", class: "w-full" do %>
+            <%= render "form", provider: Provider.new %>
+          <% end %>
+        </div>
+        <!-- Fine Tune Rows -->
+        <%= render @providers %>
+      </tbody>
+    </table>
+  </div>
 </div>
