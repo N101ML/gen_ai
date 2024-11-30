@@ -1,18 +1,20 @@
-<%= turbo_frame_tag base_model do %>
-  <tr class="transition duration-200 bg-gray-900 hover:bg-gray-800">
-    <td class="px-4 py-2 text-white">
-      <%= base_model.name %>
-    </td>
-    <td class="px-4 py-2 text-white">
-      <%= base_model.company %>
-    </td>
-    <td class="flex px-4 py-2 space-x-2 text-white">
-      <%= link_to "Edit", edit_base_model_path(base_model),
-                class: "text-blue-500 hover:underline",
-                data: { turbo_frame: dom_id(base_model) } %>
-      <%= button_to "Delete", base_model_path(base_model),
-                  method: :delete,
-                  class: "text-red-500 hover:underline" %>
-    </td>
-  </tr>
-<% end %>
+<tr class="border-t border-neutral" id="base_model_<%= base_model.id %>">
+  <td class="px-4 py-2 text-white">
+    <%= base_model.name %>
+  </td>
+  <td class="px-4 py-2 text-white">
+    <%= base_model.company %>
+  </td>
+  <td class="flex justify-center px-4 py-2 space-x-2 text-white">
+    <%= button_to edit_base_model_path(base_model), 
+            method: :get, # Ensures it sends a GET request like a link
+            class: "text-blue-500 hover:underline flex items-center", 
+            data: { turbo_stream: true } do %>
+      <%= render "svg/edit" %>
+    <% end %>
+
+    <%= button_to base_model_path(base_model), method: :delete, class: "text-white" do %>
+      <%= render "svg/delete" %>
+    <% end %>
+  </td>
+</tr>

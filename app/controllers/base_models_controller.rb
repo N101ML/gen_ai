@@ -24,6 +24,15 @@ class BaseModelsController < ApplicationController
     end
   end
 
+  def edit
+    @base_model = BaseModel.find(params[:id])
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html
+    end
+  end
+
   def update
     if @base_model.update(base_model_params)
       flash.now[:notice] = "Base Model was successfully updated."

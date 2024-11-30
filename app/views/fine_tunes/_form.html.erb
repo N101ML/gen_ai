@@ -6,7 +6,7 @@
     <td class="">
       <%= f.collection_select :base_model_id, BaseModel.all, :id, :name, { prompt: "Select a Base Model" }, class: "bg-custom-bg-main" %>
     </td>
-    <td class="">
+    <td class="flex justify-center">
       <%= f.submit fine_tune.new_record? ? "Add" : "Update", class: "btn btn-outline text-white bg-custom-bg-main" %>
     <% end %>
   </td>

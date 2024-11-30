@@ -2,12 +2,16 @@
   <td class="text-white">
     <%= provider.name %>
   </td>
-  <td class="flex space-x-2 text-white">
-    <%= link_to "Edit", edit_provider_path(provider),
-              class: "text-blue-500 hover:underline",
-              data: { turbo_stream: true } %>
-    <%= button_to "Delete", provider_path(provider),
-                method: :delete,
-                class: "text-red-500 hover:underline" %>
+  <td class="flex justify-center space-x-2 text-white">
+    <%= button_to edit_provider_path(provider), 
+            method: :get, # Ensures it sends a GET request like a link
+            class: "", 
+            data: { turbo_stream: true } do %>
+      <%= render "svg/edit" %>
+    <% end %>
+
+    <%= button_to provider_path(provider), method: :delete, class: "text-white" do %>
+      <%= render "svg/delete" %>
+    <% end %>
   </td>
 </tr>

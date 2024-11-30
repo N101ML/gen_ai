@@ -3,7 +3,7 @@
     <%= form_with model: provider, id: dom_id(provider, "form"), class: "flex flex-cols" do |f| %>
       <%= f.text_field :name, placeholder: "Provider Name", class: "text-white bg-custom-bg-main" %>
     </td>
-    <td class="">
+    <td class="flex justify-center">
       <%= f.submit provider.new_record? ? "Add" : "Update", class: "btn btn-outline text-white bg-custom-bg-main" %>
     <% end %>
   </td>
