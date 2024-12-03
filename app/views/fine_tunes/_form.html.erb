@@ -1,14 +1,14 @@
-<tr class="border-t border-neutral">
-  <%= form_with model: fine_tune, id: dom_id(fine_tune, "form"), class: "flex flex-cols" do |f| %>
-    <td>
-      <%= f.text_field :name, placeholder: "Fine Tune Name", class: "text-white bg-custom-bg-main" %>
-    </td>
-    <td class="flex justify-center space-x-2">
+<div class="border-b border-neutral" data-controller="form">
+  <%= form_with model: fine_tune, id: dom_id(fine_tune, "form"), class: "flex flex-cols justify-between" do |f| %>
+    <div>
+      <%= f.text_field :name, placeholder: "Base Model Name", class: "text-white bg-custom-bg-main m-2" %>
+    </div>
+    <div class="flex justify-center m-2 space-x-2">
       <%= f.submit fine_tune.new_record? ? "Add" : "Update", class: "btn btn-outline text-white bg-custom-bg-main" %>
 
       <% unless fine_tune.new_record? %>
         <%= link_to "Back", fine_tunes_path, class: "btn btn-outline text-white bg-custom-bg-main" %>
       <% end %>
-    </td>
+    </div>
   <% end %>
-</tr>
+</div>

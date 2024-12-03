@@ -1,8 +1,9 @@
 class FineTunesController < ApplicationController
   before_action :set_fine_tune, only: [:edit, :update, :destroy]
   def index
-    @fine_tunes = FineTune.includes(:base_model).order(created_at: :desc)
-    @fine_tunes = @fine_tunes.where("name LIKE ?", "%#{params[:filter]}%")
+    filtered = FineTune.includes(:base_model).order(created_at: :desc)
+    filtered = filtered.where("name LIKE ?", "%#{params[:filter]}%")
+    @pagy, @fine_tunes = pagy(filtered)
   end
 
   def new

@@ -1,17 +1,26 @@
-<tr class="border-t border-neutral" id="provider_<%= provider.id %>">
-  <td class="text-white">
-    <%= provider.name %>
-  </td>
-  <td class="flex text-white justify-evenly">
-    <%= button_to edit_provider_path(provider), 
-            method: :get, # Ensures it sends a GET request like a link
-            class: "", 
-            data: { turbo_stream: true } do %>
-      <%= render "svg/edit" %>
-    <% end %>
+<div class="flex justify-between border-t border-neutral" id="provider_<%= provider.id %>">
+  <div class="flex justify-between m-2 text-white">
+    <div>
+      <%= image_tag provider.logo_url, class: "w-20 h-20" %>
+    </div>
+    <div class="content-center m-2">
+      <%= provider.name %>
+    </div>
+  </div>
+  <div class="flex text-white">
+    <div class="content-center">
+      <%= button_to edit_provider_path(provider), 
+              method: :get, # Ensures it sends a GET request like a link
+              class: "m-2", 
+              data: { turbo_stream: true } do %>
+        <%= render "svg/edit" %>
+      <% end %>
+    </div>
 
-    <%= button_to provider_path(provider), method: :delete, class: "text-white" do %>
-      <%= render "svg/delete" %>
-    <% end %>
-  </td>
-</tr>
+    <div class="content-center">
+      <%= button_to provider_path(provider), method: :delete, class: "m-2 text-white" do %>
+        <%= render "svg/delete" %>
+      <% end %>
+    </div>
+  </div>
+</div>

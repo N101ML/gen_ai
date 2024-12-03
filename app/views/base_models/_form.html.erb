@@ -1,29 +1,28 @@
-<tr class="border-t border-neutral" data-controller="form">
-  <%= form_with model: base_model, id: dom_id(base_model, "form"), class: "flex flex-cols" do |f| %>
-    <td>
-      <%= f.text_field :name, placeholder: "Base Model Name", class: "text-white bg-custom-bg-main" %>
-    </td>
-    <td>
+<div class="border-b border-neutral" data-controller="form">
+  <%= form_with model: base_model, id: dom_id(base_model, "form"), class: "flex flex-cols justify-between" do |f| %>
+    <div>
+      <%= f.text_field :name, placeholder: "Base Model Name", class: "text-white bg-custom-bg-main m-2" %>
+    </div>
+    <div>
       <%= f.collection_select :company, 
-    BaseModel.distinct.pluck(:company).compact + ["Add a new company"],
-    :to_s, # Value method: use the string itself as the value
-    :to_s, # Text method: use the string itself as the display text
-    { prompt: "Select a Company" }, # Options hash
-    class: " w-full bg-custom-bg-main",
-    data: { action: "change->form#customCompany", form_target: "collectionCompany"}
-  %>
+        BaseModel.distinct.pluck(:company).compact + ["Add a new company"],
+        :to_s, # Value method: use the string itself as the value
+        :to_s, # Text method: use the string itself as the display text
+        { prompt: "Select a Company" }, # Options hash
+        class: "text-white bg-custom-bg-main m-2",
+        data: { action: "change->form#customCompany", form_target: "collectionCompany"} %>
 
       <%= f.text_field :custom_company, 
-    placeholder: "Enter a new company", 
-    class: "w-full hidden bg-custom-bg-main",
-    data: { form_target: "customCompany" } %>
-    </td>
-    <td class="flex justify-center space-x-2">
+        placeholder: "Enter a new company", 
+        class: "text-white bg-custom-bg-main m-2 hidden",
+        data: { form_target: "customCompany" } %>
+    </div>
+    <div class="flex justify-center m-2 space-x-2">
       <%= f.submit base_model.new_record? ? "Add" : "Update", class: "btn btn-outline text-white bg-custom-bg-main" %>
 
       <% unless base_model.new_record? %>
         <%= link_to "Back", base_models_path, class: "btn btn-outline text-white bg-custom-bg-main" %>
       <% end %>
-    </td>
+    </div>
   <% end %>
-</tr>
+</div>

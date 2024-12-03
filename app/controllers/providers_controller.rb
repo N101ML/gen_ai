@@ -1,6 +1,7 @@
 class ProvidersController < ApplicationController
   def index
-    @providers = Provider.where("name LIKE ?", "%#{params[:filter]}%")
+    filtered = Provider.where("name LIKE ?", "%#{params[:filter]}%")
+    @pagy, @providers = pagy(filtered)
   end
 
   def new

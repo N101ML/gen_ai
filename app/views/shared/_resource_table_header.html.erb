@@ -1,6 +1,8 @@
-<tr class="text-white">
-  <% headers.each do |header| %>
-    <th class="px-4 py-2"><%= header %></th>
-  <% end %>
-  <th class="px-4 py-2"></th>
-</tr>
+<div class="text-white border-y border-neutral">
+  <div class="flex justify-between">
+    <% headers.each do |header| %>
+      <div class="px-4 py-2"><%= header %></div>
+    <% end %>
+    <div class="px-4 py-2"></div>
+  </div>
+</div>

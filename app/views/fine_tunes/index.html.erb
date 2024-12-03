@@ -4,27 +4,34 @@
   <div class="flex justify-between mb-2">
     <h1 class="text-4xl font-bold text-white"></h1>
     <!-- Search Filter -->
-    <%= form_with url: fine_tunes_path, method: :get, data: { controller: "form", action: "input->form#submit", turbo_frame: "fine_tunes", turbo_action: "advance" } do %>
+    <%= form_with url: fine_tunes_path, method: :get, data: { controller: "filter-search", action: "input->filter-search#submit", turbo_frame: "fine_tunes_list", turbo_action: "advance" } do %>
       <%= text_field_tag "filter", nil, placeholder: "Filter", class: "bg-custom-bg-main w-full" %>
     <% end %>
   </div>
 
-  <div class="overflow-x-auto">
-    <table class="table min-w-full border-t table-zebra border-neutral">
-      <!-- Header -->
-      <thead>
-        <%= render partial: "shared/resource_table_header", locals: { headers: ["Fine Tune Name", "Base Model"] } %>
-      </thead>
+  <div class="min-w-full overflow-x-auto">
+    <!-- Header -->
+    <div>
+      <%= render partial: "shared/resource_table_header", locals: { headers: ["Fine Tune Name", "Base Model"] } %>
+    </div>
 
-      <tbody id="fine_tunes">
-        <div>
-          <%= turbo_frame_tag "new-fine-tune-form", class: "w-full" do %>
-            <%= render "form", fine_tune: FineTune.new %>
-          <% end %>
-        </div>
-        <!-- Fine Tune Rows -->
-        <%= render @fine_tunes %>
-      </tbody>
-    </table>
+    <!-- Rows -->
+    <div>
+      <!-- Single Row for New Base Model Form -->
+      <div>
+        <%= turbo_frame_tag "new-fine-tune-form", class: "w-full" do %>
+          <%= render "form", fine_tune: FineTune.new %>
+        <% end %>
+      </div>
+      <!-- Individual Fine Tune Rows w/ Pagination -->
+      <div>
+        <%= turbo_frame_tag "fine_tunes_list" do %>
+          <%= render @fine_tunes %>
+          <div class="flex justify-center mt-2">
+            <%== pagy_nav(@pagy, link_extra: 'data-turbo-action="advance"') %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

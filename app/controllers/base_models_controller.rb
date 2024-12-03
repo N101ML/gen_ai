@@ -1,6 +1,7 @@
 class BaseModelsController < ApplicationController
   def index
-    @base_models = BaseModel.where("name LIKE ?", "%#{params[:filter]}%")
+    filtered = BaseModel.where("name LIKE ?", "%#{params[:filter]}%")
+    @pagy, @base_models = pagy(filtered)
   end
 
   def new

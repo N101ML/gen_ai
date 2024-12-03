@@ -4,29 +4,34 @@
   <div class="flex justify-between mb-2">
     <h1 class="text-4xl font-bold text-white"></h1>
     <!-- Search Filter -->
-    <%= form_with url: base_models_path, method: :get, data: { controller: "form", action: "input->form#submit", turbo_frame: "base_models", turbo_action: "advance" } do %>
+    <%= form_with url: base_models_path, method: :get, data: { controller: "filter-search", action: "input->filter-search#submit", turbo_frame: "base_models_list", turbo_action: "advance" } do %>
       <%= text_field_tag "filter", nil, placeholder: "Filter", class: "bg-custom-bg-main w-full" %>
     <% end %>
   </div>
 
-  <div class="overflow-x-auto">
-    <table class="table min-w-full border-t table-zebra border-neutral">
-      <!-- Header -->
-      <thead>
-        <%= render partial: "shared/resource_table_header", locals: { headers: ["Base Model Name", "Company"] } %>
-      </thead>
+  <div class="min-w-full overflow-x-auto">
+    <!-- Header -->
+    <div>
+      <%= render partial: "shared/resource_table_header", locals: { headers: ["Base Model Name", "Company Name"] } %>
+    </div>
 
-      <tbody>
-        <div>
-          <%= turbo_frame_tag "new-base-model-form", class: "w-full" do %>
-            <%= render "form", base_model: BaseModel.new %>
-          <% end %>
-        </div>
-        <!-- Fine Tune Rows -->
-        <%= turbo_frame_tag "base_models" do %>
-          <%= render @base_models %>
+    <!-- Rows -->
+    <div>
+      <!-- Single Row for New Base Model Form -->
+      <div>
+        <%= turbo_frame_tag "new-base-model-form", class: "w-full" do %>
+          <%= render "form", base_model: BaseModel.new %>
         <% end %>
-      </tbody>
-    </table>
+      </div>
+      <!-- Individual base_model Rows w/ Pagination -->
+      <div>
+        <%= turbo_frame_tag "base_models_list" do %>
+          <%= render @base_models %>
+          <div class="flex justify-center mt-2">
+            <%== pagy_nav(@pagy, link_extra: 'data-turbo-action="advance"') %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

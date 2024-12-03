@@ -1,20 +1,20 @@
-<tr class="border-t border-neutral" id="fine_tune_<%= fine_tune.id %>">
-  <td class="text-white">
+<div class="flex justify-between border-t border-neutral" id="fine_tune_<%= fine_tune.id %>">
+  <div class="m-2 text-white">
     <%= fine_tune.name %>
-  </td>
-  <td class="text-white">
+  </div>
+  <div class="m-2 text-white">
     <%= fine_tune.base_model&.name %>
-  </td>
-  <td class="flex text-white justify-evenly">
+  </div>
+  <div class="flex text-white justify-evenly">
     <%= button_to edit_fine_tune_path(fine_tune), 
               method: :get, # Ensures it sends a GET request like a link
-              class: "text-blue-500 hover:underline flex items-center", 
+              class: "m-2", 
               data: { turbo_stream: true } do %>
       <%= render "svg/edit" %>
     <% end %>
 
-    <%= button_to fine_tune_path(fine_tune), method: :delete, class: "text-white" do %>
+    <%= button_to fine_tune_path(fine_tune), method: :delete, class: "m-2 text-white" do %>
       <%= render "svg/delete" %>
     <% end %>
-  </td>
-</tr>
+  </div>
+</div>
